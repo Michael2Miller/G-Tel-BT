@@ -26,9 +26,15 @@ except KeyError as e:
 try:
     genai.configure(api_key=GEMINI_API_KEY)
     
-    # --- (هذا هو التصحيح الأخير: استخدام موديل Flash) ---
-    gemini_model = genai.GenerativeModel('gemini-1.5-flash-latest')
-    # ----------------------------------------------------
+    # -------------------------------------------------------------------
+    # --- 🛑 هام جداً: قم بتغيير هذا السطر ---
+    #
+    # اذهب إلى Google AI Studio -> "Get code"
+    # وانسخ اسم الموديل الصحيح وضعه هنا
+    #
+    gemini_model = genai.GenerativeModel('YOUR_MODEL_NAME_HERE') 
+    #
+    # -------------------------------------------------------------------
 
 except Exception as e:
     logger.critical(f"Failed to configure Gemini: {e}")
