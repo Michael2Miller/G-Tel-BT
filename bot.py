@@ -32,8 +32,10 @@ async def list_models(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         await update.message.reply_text("Checking available models for your API key...")
         
-        # هذا هو السطر الذي يسأل جوجل عن الموديلات
-        models_list = genAi.list_models()
+        # --- (هذا هو السطر الذي تم تصحيحه) ---
+        # genAi (خاطئ) -> genai (صحيح)
+        models_list = genai.list_models()
+        # ------------------------------------
         
         response_text = "✅ **Available Models:**\n\n"
         
@@ -41,7 +43,10 @@ async def list_models(update: Update, context: ContextTypes.DEFAULT_TYPE):
         for m in models_list:
             if 'generateContent' in m.supported_generation_methods:
                 response_text += f"• `{m.name}`\n"
-                
+        
+        # إزالة الشرطة المائلة الزائدة للرسالة الأخيرة
+        response_text = response_text.replace(r"\_", "_")
+
         await update.message.reply_text(response_text, parse_mode=constants.ParseMode.MARKDOWN_V2)
 
     except Exception as e:
