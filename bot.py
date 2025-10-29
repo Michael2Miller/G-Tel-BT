@@ -26,9 +26,9 @@ except KeyError as e:
 try:
     genai.configure(api_key=GEMINI_API_KEY)
     
-    # --- (هذا هو التصحيح الأول: تغيير اسم الموديل) ---
-    gemini_model = genai.GenerativeModel('gemini-1.0-pro')
-    # ----------------------------------------------
+    # --- (هذا هو التصحيح الأخير: استخدام أحدث موديل) ---
+    gemini_model = genai.GenerativeModel('gemini-1.5-pro-latest')
+    # --------------------------------------------------
 
 except Exception as e:
     logger.critical(f"Failed to configure Gemini: {e}")
@@ -73,7 +73,6 @@ async def send_join_channel_message(update: Update):
     
     sender = update.message.reply_text if update.message else update.callback_query.message.reply_text
     
-    # --- (تم التعديل: إضافة 'r' لإزالة التحذيرات) ---
     await sender(
         r"👋 **Welcome to the free Gemini Bot\!**" + "\n\n"
         r"To use this bot for free, you are required to join our official channel\." + "\n\n"
@@ -92,10 +91,8 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     if await is_user_subscribed(user_id, context):
         # الحالة 4: المستخدم العائد (المشترك)
-        
-        # --- (هذا هو التصحيح الثاني: إضافة 'r' وإصلاح '!') ---
         await update.message.reply_text(
-            r"👋 **Welcome back\!**" + "\n\n"  # <--- تم الإصلاح
+            r"👋 **Welcome back\!**" + "\n\n"
             r"You're all set\. Just send your question\.",
             parse_mode=constants.ParseMode.MARKDOWN_V2
         )
@@ -119,7 +116,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             
         except Exception as e:
             logger.error(f"Gemini error: {e}")
-            # --- (تم التعديل: إضافة 'r' لإزالة التحذيرات) ---
             await update.message.reply_text(r"Sorry, I couldn't process your request at the moment\. Please try again later\.", parse_mode=constants.ParseMode.MARKDOWN_V2)
     
     else:
@@ -135,10 +131,8 @@ async def handle_join_check(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     if await is_user_subscribed(user_id, context):
         # الحالة 2 (نجاح): انضم فعلاً
-        
-        # --- (هذا هو التصحيح الثالث: إضافة 'r' وإصلاح '!') ---
         await query.edit_message_text(
-            r"🎉 **Verification Complete\!**" + "\n\n"  # <--- تم الإصلاح
+            r"🎉 **Verification Complete\!**" + "\n\n"
             r"Thank you for joining\. Your account is now active\." + "\n\n"
             r"You can now send me any question, and I will answer using Gemini\.",
             reply_markup=None, # إزالة الأزرار
