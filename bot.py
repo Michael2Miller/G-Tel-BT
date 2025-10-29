@@ -26,9 +26,9 @@ except KeyError as e:
 try:
     genai.configure(api_key=GEMINI_API_KEY)
     
-    # --- (هذا هو التصحيح الأخير: استخدام أحدث موديل) ---
-    gemini_model = genai.GenerativeModel('gemini-1.5-pro-latest')
-    # --------------------------------------------------
+    # --- (هذا هو التصحيح الأخير: استخدام موديل Flash) ---
+    gemini_model = genai.GenerativeModel('gemini-1.5-flash-latest')
+    # ----------------------------------------------------
 
 except Exception as e:
     logger.critical(f"Failed to configure Gemini: {e}")
