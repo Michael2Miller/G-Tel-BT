@@ -1,2 +1,6 @@
 python-telegram-bot
 google-generativeai
+flask
+httpx
+python-dotenv
+aiofiles
