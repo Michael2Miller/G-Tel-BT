@@ -1,1 +1,1 @@
-worker: python gemini-bot.py
+web: python gemini-bot.py
